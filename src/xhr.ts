@@ -1,9 +1,11 @@
 // 发送请求
 import { IAxiosConfig } from './types'
+import { bindUrl } from './helpers/utils'
 
 function xhr(obj: IAxiosConfig){
-  const {data = null, method = 'get', url} = obj;
+  let {data = null, method = 'get', url, params = {}} = obj;
 
+  url = bindUrl(url, params);
 
   const request = new XMLHttpRequest();
   request.open(method, url);
