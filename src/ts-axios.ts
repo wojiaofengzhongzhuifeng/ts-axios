@@ -1,7 +1,8 @@
 import {IAxiosConfig} from './types';
+import xhr from './xhr'
 
 export default function axios(obj: IAxiosConfig){
-  console.log(obj)
+  xhr(obj);
 }
 
 // 这样使用
