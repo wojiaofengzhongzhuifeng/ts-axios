@@ -14,11 +14,9 @@ export let isEmpty: IsEmptyFun = (data) => {
 
 export let bindUrl: BindUrlFun = (url, params) => {
   return !isEmpty(params) ? Object.keys(params).reduce((preUrl, key, index) => {
-    let value = params[key]
-    if (index + 1 === Object.keys(params).length) {
-      return preUrl += `${key}=${value}`
-    } else {
-      return preUrl += `${key}=${value}&`
-    }
+    let value = params[key];
+    let conditionalString = index + 1 === Object.keys(params).length ? '' : '&';
+
+    return preUrl += `${key}=${value}${conditionalString}`
   }, `${url}?`) : url;
 }
