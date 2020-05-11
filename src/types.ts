@@ -13,3 +13,8 @@ export interface IAxiosConfig {
   params?: Object,
   data?: any,
 }
+
+export interface IsEmptyFun{
+  (data: any): Boolean
+}
+
