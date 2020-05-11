@@ -1,4 +1,4 @@
-import { IsEmptyFun } from '../types'
+import { BindUrlFun, IsEmptyFun } from '../types'
 
 export let isEmpty: IsEmptyFun = (data) => {
   let type = Object.prototype.toString.call(data)
@@ -10,4 +10,15 @@ export let isEmpty: IsEmptyFun = (data) => {
     default:
       return !Boolean(data)
   }
+}
+
+export let bindUrl: BindUrlFun = (url, params) => {
+  return !isEmpty(params) ? Object.keys(params).reduce((preUrl, key, index) => {
+    let value = params[key]
+    if (index + 1 === Object.keys(params).length) {
+      return preUrl += `${key}=${value}`
+    } else {
+      return preUrl += `${key}=${value}&`
+    }
+  }, `${url}?`) : url;
 }

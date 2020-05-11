@@ -18,3 +18,9 @@ export interface IsEmptyFun{
   (data: any): Boolean
 }
 
+export interface BindUrlFun {
+  (url: string, params: {
+    [key: string]: any
+  }): string
+}
+
