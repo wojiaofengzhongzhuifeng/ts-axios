@@ -24,3 +24,9 @@ export interface BindUrlFun {
   }): string
 }
 
+export interface IsArrayFun {
+  (data: any): boolean
+}
+ export interface ChangeArrayValueFun {
+   (key: string, value: (string | number)[]): string
+ }
