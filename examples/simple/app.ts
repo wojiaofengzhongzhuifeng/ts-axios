@@ -9,6 +9,9 @@ axios({
   params: {
     a: 1,
     b: [2,3],
-    c: 4
+    c: 4,
+    d: {
+      dd: "ddd"
+    }
   }
 })

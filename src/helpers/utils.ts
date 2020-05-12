@@ -1,4 +1,11 @@
-import { BindUrlFun, ChangeArrayValueFun, IsArrayFun, IsEmptyFun } from '../types'
+import {
+  BindUrlFun,
+  ChangeArrayValueFun,
+  ChangeObjectValueFun,
+  IsArrayFun,
+  IsEmptyFun,
+  IsObjectFun
+} from '../types'
 
 // 是否是空值, 包括空数组, 空对象, 空字符串, null, undefined
 export let isEmpty: IsEmptyFun = (data) => {
@@ -20,6 +27,14 @@ export let changeArrayValue: ChangeArrayValueFun = (key, arrayValue) => {
   }, '');
   return tempResult.substring(0, tempResult.length - 1)
 }
+// bug: 未处理多个 key:value 情况!输入 key 和对象 value, 输出转义后的 paramsString
+export let changeObjectValue: ChangeObjectValueFun = (key, objectValue) => {
+  let encodeValue = encodeURI(JSON.stringify(objectValue));
+  let tempResult = Object.keys(objectValue).reduce((preString: string, value: any)=>{
+    return preString += `${key}=${encodeValue}`
+  }, '');
+  return tempResult;
+}
 
 // 将 url 与 params 进行拼接, 生成一个新的 url
 export let bindUrl: BindUrlFun = (url, params) => {
@@ -31,6 +46,10 @@ export let bindUrl: BindUrlFun = (url, params) => {
     if(isArray(value)){
       keyValue = changeArrayValue(key, value)
     }
+    // 处理 value 是 object 的情况
+    if(isObject(value)){
+      keyValue = changeObjectValue(key, value)
+    }
 
     return preUrl += `${keyValue}${conditionalString}`
   }, `${url}?`) : url;
@@ -39,4 +58,9 @@ export let bindUrl: BindUrlFun = (url, params) => {
 // 判断是否为数组
 export let isArray: IsArrayFun = (data) => {
   return Object.prototype.toString.call(data) === '[object Array]';
+}
+
+// 判断是否为狭义的对象
+export let isObject: IsObjectFun = (data) => {
+  return Object.prototype.toString.call(data) === '[object Object]';
 }

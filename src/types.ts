@@ -27,6 +27,13 @@ export interface BindUrlFun {
 export interface IsArrayFun {
   (data: any): boolean
 }
- export interface ChangeArrayValueFun {
-   (key: string, value: (string | number)[]): string
- }
+export interface ChangeArrayValueFun {
+ (key: string, value: (string | number)[]): string
+}
+export interface ChangeObjectValueFun {
+  (key: string, value: object): string
+}
+
+export interface IsObjectFun {
+  (data: any): boolean
+}
