@@ -26,6 +26,11 @@ axios({
   data: {
     a: 1,
     b: 2
+  },
+  headers: {
+    'content-type': 'application/json;charset=utf-8',
+    a: 1,
+    b: 2,
   }
 })
 

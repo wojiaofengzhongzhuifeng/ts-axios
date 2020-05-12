@@ -5,7 +5,7 @@ import {
   ChangeObjectValueFun,
   IsArrayFun, IsDateObject,
   IsEmptyFun,
-  IsObjectFun, TransformRequestDataFun
+  IsObjectFun, SetHeaderFun, TransformRequestDataFun, TransformRequestHeadersFun
 } from '../types'
 
 // 是否是空值, 包括空数组, 空对象, 空字符串, null, undefined
@@ -86,4 +86,22 @@ export let transformRequestData: TransformRequestDataFun = (data) => {
   } else {
     return data;
   }
+}
+
+export let transformRequestHeaders: TransformRequestHeadersFun = (data) => {
+  if(isEmpty(data)){
+    return {
+      'content-type': 'application/json;charset=utf-8'
+    }
+  } else {
+    return data
+  }
+}
+
+export let setHeader: SetHeaderFun = (request, data) => {
+  Object.keys(data).forEach((headerKey)=>{
+    let headerValue = data[headerKey];
+
+    request.setRequestHeader(headerKey, headerValue)
+  });
 }

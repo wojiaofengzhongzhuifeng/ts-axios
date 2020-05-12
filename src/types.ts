@@ -48,3 +48,9 @@ export interface IsDateObject {
 export interface TransformRequestDataFun {
   (data: any): any
 }
+export interface TransformRequestHeadersFun {
+  (data: object): object
+}
+export interface SetHeaderFun {
+  (request: XMLHttpRequest, headers: any): void
+}
