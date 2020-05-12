@@ -12,6 +12,7 @@ axios({
     c: 4,
     d: {
       dd: "ddd"
-    }
+    },
+    e: new Date(),
   }
 })

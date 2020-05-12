@@ -33,7 +33,14 @@ export interface ChangeArrayValueFun {
 export interface ChangeObjectValueFun {
   (key: string, value: object): string
 }
+export interface ChangeDateObjectValueFun {
+  (key: string, value: Date): string
+}
 
 export interface IsObjectFun {
+  (data: any): boolean
+}
+
+export interface IsDateObject {
   (data: any): boolean
 }

@@ -1,8 +1,9 @@
 import {
   BindUrlFun,
   ChangeArrayValueFun,
+  ChangeDateObjectValueFun,
   ChangeObjectValueFun,
-  IsArrayFun,
+  IsArrayFun, IsDateObject,
   IsEmptyFun,
   IsObjectFun
 } from '../types'
@@ -35,6 +36,10 @@ export let changeObjectValue: ChangeObjectValueFun = (key, objectValue) => {
   }, '');
   return tempResult;
 }
+// 将 date 转化为 date.toISOString
+export let changeDateObjectValue: ChangeDateObjectValueFun = (key, dateObjectValue) => {
+  return `${key}=${dateObjectValue.toISOString()}&`;
+}
 
 // 将 url 与 params 进行拼接, 生成一个新的 url
 export let bindUrl: BindUrlFun = (url, params) => {
@@ -50,6 +55,10 @@ export let bindUrl: BindUrlFun = (url, params) => {
     if(isObject(value)){
       keyValue = changeObjectValue(key, value)
     }
+    // 处理 value 是 dateObject 的情况
+    if(isDateObject(value)){
+      keyValue = changeDateObjectValue(key, value)
+    }
 
     return preUrl += `${keyValue}${conditionalString}`
   }, `${url}?`) : url;
@@ -63,4 +72,8 @@ export let isArray: IsArrayFun = (data) => {
 // 判断是否为狭义的对象
 export let isObject: IsObjectFun = (data) => {
   return Object.prototype.toString.call(data) === '[object Object]';
+}
+
+export let isDateObject: IsDateObject = (data) => {
+  return data instanceof Date;
 }
