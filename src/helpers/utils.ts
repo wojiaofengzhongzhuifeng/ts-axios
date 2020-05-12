@@ -5,7 +5,7 @@ import {
   ChangeObjectValueFun,
   IsArrayFun, IsDateObject,
   IsEmptyFun,
-  IsObjectFun
+  IsObjectFun, TransformRequestDataFun
 } from '../types'
 
 // 是否是空值, 包括空数组, 空对象, 空字符串, null, undefined
@@ -77,4 +77,13 @@ export let isObject: IsObjectFun = (data) => {
 
 export let isDateObject: IsDateObject = (data) => {
   return data instanceof Date;
+}
+
+// 处理请求 data
+export let transformRequestData: TransformRequestDataFun = (data) => {
+  if(isObject(data)){
+    return JSON.stringify(data);
+  } else {
+    return data;
+  }
 }

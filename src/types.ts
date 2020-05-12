@@ -44,3 +44,7 @@ export interface IsObjectFun {
 export interface IsDateObject {
   (data: any): boolean
 }
+
+export interface TransformRequestDataFun {
+  (data: any): any
+}
