@@ -62,7 +62,7 @@ export let bindUrl: BindUrlFun = (url, params) => {
 
     return preUrl += `${keyValue}`
   }, `${url}?`) : url;
-  return tempResult.substring(0, tempResult.length - 1);
+  return tempResult[tempResult.length] === '&' ?  tempResult.substring(0, tempResult.length - 1) : tempResult;
 }
 
 // 判断是否为数组
