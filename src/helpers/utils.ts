@@ -26,13 +26,13 @@ export let changeArrayValue: ChangeArrayValueFun = (key, arrayValue) => {
   let tempResult = arrayValue.reduce((preString: string, value: any)=>{
     return preString += `${key}[]=${value}&`
   }, '');
-  return tempResult.substring(0, tempResult.length - 1)
+  return tempResult
 }
 // bug: 未处理多个 key:value 情况!输入 key 和对象 value, 输出转义后的 paramsString
 export let changeObjectValue: ChangeObjectValueFun = (key, objectValue) => {
   let encodeValue = encodeURI(JSON.stringify(objectValue));
   let tempResult = Object.keys(objectValue).reduce((preString: string, value: any)=>{
-    return preString += `${key}=${encodeValue}`
+    return preString += `${key}=${encodeValue}&`
   }, '');
   return tempResult;
 }
@@ -43,10 +43,10 @@ export let changeDateObjectValue: ChangeDateObjectValueFun = (key, dateObjectVal
 
 // 将 url 与 params 进行拼接, 生成一个新的 url
 export let bindUrl: BindUrlFun = (url, params) => {
-  return !isEmpty(params) ? Object.keys(params).reduce((preUrl, key, index) => {
+  let tempResult = !isEmpty(params) ? Object.keys(params).reduce((preUrl, key, index) => {
     let value = params[key];
-    let keyValue = `${key}=${value}`;
-    let conditionalString = index + 1 === Object.keys(params).length ? '' : '&';
+    let keyValue = `${key}=${value}&`;
+    // let conditionalString = index + 1 === Object.keys(params).length ? '' : '&';
     // 处理 value 是 array 的情况
     if(isArray(value)){
       keyValue = changeArrayValue(key, value)
@@ -60,8 +60,9 @@ export let bindUrl: BindUrlFun = (url, params) => {
       keyValue = changeDateObjectValue(key, value)
     }
 
-    return preUrl += `${keyValue}${conditionalString}`
+    return preUrl += `${keyValue}`
   }, `${url}?`) : url;
+  return tempResult.substring(0, tempResult.length - 1);
 }
 
 // 判断是否为数组
