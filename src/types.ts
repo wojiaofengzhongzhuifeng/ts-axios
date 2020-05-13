@@ -76,3 +76,6 @@ export interface ParseHeaders {
     [key: string]: string
   }
 }
+export interface TransformResponseData {
+  (response: AxiosResponse): void
+}
