@@ -10,7 +10,7 @@ import {
 
 let xhr: Xhr = (obj) => {
   return new Promise((resolve, reject)=>{
-    let {data = null, method = 'get', url, params = {}, headers = {}} = obj;
+    let {data = null, method = 'get', url, params = {}, headers = {}, timeout = 0} = obj;
 
     url = bindUrl(url, params);
     data = transformRequestData(data);
@@ -20,6 +20,11 @@ let xhr: Xhr = (obj) => {
 
     request.onerror = function handleError() {
       reject(new Error('Network Error'))
+    }
+
+    request.timeout = timeout;
+    request.ontimeout = function handleTimeout() {
+      reject(new Error(`Timeout of ${timeout} ms exceeded`))
     }
 
     request.onreadystatechange = function() {

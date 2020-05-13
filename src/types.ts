@@ -12,6 +12,7 @@ export interface IAxiosConfig {
   headers?: Object,
   params?: Object,
   data?: any,
+  timeout?: number,
 }
 
 export interface IsEmptyFun{
