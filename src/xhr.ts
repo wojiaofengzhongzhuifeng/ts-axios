@@ -17,7 +17,20 @@ let xhr: Xhr = (obj) => {
     headers = transformRequestHeaders(headers);
 
     const request = new XMLHttpRequest();
+
+    request.onerror = function handleError() {
+      reject(new Error('Network Error'))
+    }
+
     request.onreadystatechange = function() {
+      if (request.readyState !== 4) {
+        return
+      }
+
+      if (request.status === 0) {
+        return
+      }
+
       if (request.readyState === 4) {
         console.log(request);
         let responseData = request.response;
