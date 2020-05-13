@@ -1,6 +1,7 @@
-import {IAxiosConfig} from './types';
+import { Axios } from './types'
 import xhr from './xhr'
 
-export default function axios(obj: IAxiosConfig){
-  xhr(obj);
+let axios: Axios = (config) => {
+  return xhr(config)
 }
+export default axios

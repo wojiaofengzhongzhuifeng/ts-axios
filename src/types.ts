@@ -54,3 +54,18 @@ export interface TransformRequestHeadersFun {
 export interface SetHeaderFun {
   (request: XMLHttpRequest, headers: any): void
 }
+export type AxiosResponsePromise = Promise<AxiosResponse>
+export interface Xhr {
+  (config: IAxiosConfig): AxiosResponsePromise
+}
+export interface AxiosResponse {
+  data: any
+  status: number
+  statusText: string
+  headers: string
+  config: IAxiosConfig
+  request: any
+}
+export interface Axios {
+  (config: IAxiosConfig): AxiosResponsePromise
+}

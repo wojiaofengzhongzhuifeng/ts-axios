@@ -29,6 +29,8 @@ axios({
     a: 1,
     b: 2,
   }
+}).then((response)=>{
+  console.log(response)
 })
 
 // const arr = new Int32Array([21, 31])

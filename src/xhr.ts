@@ -1,8 +1,8 @@
 // 发送请求
-import { IAxiosConfig } from './types'
+import { IAxiosConfig, Xhr } from './types'
 import { bindUrl, transformRequestData, transformRequestHeaders, setHeader} from './helpers/utils'
 
-function xhr(obj: IAxiosConfig){
+let xhr: Xhr = (obj) => {
   return new Promise((resolve, reject)=>{
     let {data = null, method = 'get', url, params = {}, headers = {}} = obj;
 
@@ -13,7 +13,21 @@ function xhr(obj: IAxiosConfig){
     const request = new XMLHttpRequest();
     request.onreadystatechange = function() {
       if (request.readyState === 4) {
-        resolve(request);
+        console.log(request);
+        let data = request.response;
+        let status = request.status;
+        let statusText = request.statusText;
+        let headers = request.getAllResponseHeaders();
+        let config = obj;
+
+        resolve({
+          data,
+          status,
+          statusText,
+          headers,
+          config,
+          request,
+        });
       }
     }
 
