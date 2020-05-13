@@ -62,10 +62,17 @@ export interface AxiosResponse {
   data: any
   status: number
   statusText: string
-  headers: string
+  headers: {
+    [key: string]: string
+  }
   config: IAxiosConfig
   request: any
 }
 export interface Axios {
   (config: IAxiosConfig): AxiosResponsePromise
+}
+export interface ParseHeaders {
+  (headers: string): {
+    [key: string]: string
+  }
 }

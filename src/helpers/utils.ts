@@ -5,7 +5,7 @@ import {
   ChangeObjectValueFun,
   IsArrayFun, IsDateObject,
   IsEmptyFun,
-  IsObjectFun, SetHeaderFun, TransformRequestDataFun, TransformRequestHeadersFun
+  IsObjectFun, ParseHeaders, SetHeaderFun, TransformRequestDataFun, TransformRequestHeadersFun
 } from '../types'
 
 // 是否是空值, 包括空数组, 空对象, 空字符串, null, undefined
@@ -105,3 +105,24 @@ export let setHeader: SetHeaderFun = (request, data) => {
     request.setRequestHeader(headerKey, headerValue)
   });
 }
+
+export let parseHeaders: ParseHeaders = (headers) => {
+  let parsed = Object.create(null)
+  if (!headers) {
+    return parsed
+  }
+
+  headers.split('\r\n').forEach(line => {
+    let [key, val] = line.split(':')
+    key = key.trim().toLowerCase()
+    if (!key) {
+      return
+    }
+    if (val) {
+      val = val.trim()
+    }
+    parsed[key] = val
+  })
+  return parsed
+}
+
